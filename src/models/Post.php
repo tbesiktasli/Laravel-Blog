@@ -1,10 +1,13 @@
 <?php namespace Fbf\LaravelBlog;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Post extends \Eloquent {
+class Post extends \Eloquent implements SluggableInterface {
 
 	use SoftDeletingTrait;
+	use SluggableTrait;
 	protected $dates = ['deleted_at'];
 	
 	/**
@@ -32,7 +35,7 @@ class Post extends \Eloquent {
 	 * Used for Cviebrock/EloquentSluggable
 	 * @var array
 	 */
-	public static $sluggable = array(
+	protected $sluggable = array(
 		'build_from' => 'title',
 		'save_to' => 'slug',
 		'separator' => '-',
